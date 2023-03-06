@@ -1,4 +1,4 @@
-# *CS6570 Lab 2 Report*
+# *Instructions to run*
 
 ## Lab 2_1
 
