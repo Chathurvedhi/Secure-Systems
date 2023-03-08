@@ -1,0 +1,5 @@
+Your input:
+,                                                                                         f7f8a5ee
+flag = 100
+
+The system is compromised
